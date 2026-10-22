@@ -1,0 +1,14 @@
+# EJEMPLO INACTIVO. No copiar a producción sin confirmar dominio y alojamiento.
+# Instalar en el servidor que recibe el .com, antes de sus reglas actuales.
+# GG_NEW_ORIGIN debe configurarse en Apache con el origen HTTPS REAL aprobado.
+# No se incluye un dominio de ejemplo ni se ha configurado ese valor.
+# RewriteEngine On
+# RewriteCond %{ENV:GG_NEW_ORIGIN} !^$
+# RewriteRule ^$ %{ENV:GG_NEW_ORIGIN}/ [R=301,L]
+# RewriteCond %{ENV:GG_NEW_ORIGIN} !^$
+# RewriteRule ^inicio/?$ %{ENV:GG_NEW_ORIGIN}/star-winner-turismo [R=301,L]
+# RewriteCond %{ENV:GG_NEW_ORIGIN} !^$
+# RewriteRule ^acerca-de-1/?$ %{ENV:GG_NEW_ORIGIN}/master-academia-productora [R=301,L]
+# RewriteCond %{ENV:GG_NEW_ORIGIN} !^$
+# RewriteRule ^acerca-de/?$ %{ENV:GG_NEW_ORIGIN}/aureola-mistica [R=301,L]
+# Añadir otras equivalencias solo después de ampliar el inventario.

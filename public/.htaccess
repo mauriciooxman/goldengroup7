@@ -1,0 +1,6 @@
+Options -Indexes -MultiViews
+DirectoryIndex index.php
+RewriteEngine On
+# Únicamente los recursos públicos se sirven directamente.
+RewriteRule ^assets/.*\.(css|js|svg|png|webp|jpg)$ - [L,NC]
+RewriteRule ^ index.php [L,QSA]
