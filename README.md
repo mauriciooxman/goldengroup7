@@ -19,7 +19,7 @@ Abrir http://127.0.0.1:8080. Detener con Ctrl+C. `-n` evita una advertencia del 
 ## Editar
 
 - `app/config.php`: empresa, correos, redes, WhatsApp, dominio y rutas de imágenes. No se asignan correos a áreas. En producción, WhatsApp solo aparece con un número válido configurado, que debe estar confirmado por la clienta.
-- Botones flotantes: `whatsapp` (`GG_WHATSAPP`, formato internacional solo dígitos) y `contact_email` (`GG_CONTACT_EMAIL`) están pendientes. En preview se muestran deshabilitados sin enlaces; en producción solo aparecen los canales válidos configurados. El correo flotante es independiente de los correos históricos publicados.
+- Botones flotantes: `whatsapp` (`GG_WHATSAPP`, formato internacional solo dígitos) usa temporalmente el número autorizado por el usuario; `contact_email` (`GG_CONTACT_EMAIL`) usa `Goldengroup7@yahoo.com`. Ambos valores están en `app/config.php`. Una variable de entorno vacía desactiva ese canal: en preview queda deshabilitado y en producción se oculta. El número empresarial definitivo sigue pendiente.
 - `app/content.php`: contenido de las tres áreas.
 - `app/partials/`: cabecera, páginas, pie y llamadas a contacto.
 - `public/assets/`: estilos, JavaScript, logos e ilustraciones. Sin fuentes remotas ni cookies de seguimiento.
