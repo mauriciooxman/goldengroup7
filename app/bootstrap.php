@@ -13,8 +13,9 @@ function productionUrl(array $config): string {
         && empty($parts['fragment']) && empty($parts['path']) ? $url : '';
 }
 function whatsappUrl(array $config): string {
-    return preg_match('/^[1-9][0-9]{7,14}$/D', $config['whatsapp']) === 1
-        ? 'https://wa.me/' . $config['whatsapp'] : '';
+    if (preg_match('/^[1-9][0-9]{7,14}$/D', $config['whatsapp']) !== 1) { return ''; }
+    $message = trim($config['whatsapp_message'] ?? '');
+    return 'https://wa.me/' . $config['whatsapp'] . ($message !== '' ? '?text=' . rawurlencode($message) : '');
 }
 $baseUrl = productionUrl($config);
 $indexable = $baseUrl !== '';
