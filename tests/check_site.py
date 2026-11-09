@@ -11,8 +11,8 @@ from urllib.request import urlopen
 from xml.etree import ElementTree
 
 ROOT = Path(__file__).resolve().parents[1]
-ROUTES = ['/', '/contacto', '/star-winner-turismo', '/master-academia-productora', '/aureola-mistica']
-EMAILS = {'Goldengroup7@yahoo.com', 'Starwinner@gmail.com', 'Masterproducciones6@gmail.com'}
+ROUTES = ['/', '/contacto', '/star-winner-turismo', '/master-academia-productora', '/aureola-mistica', '/star-winner-turismo/alemania']
+EMAILS = {'goldengroup7spa@gmail.com'}
 
 
 class Page(HTMLParser):
@@ -113,7 +113,10 @@ def run_mode(mode, production_url, expected_index, contact_email=''):
                 if link.startswith('#'):
                     assert link[1:] in page.ids
                 elif link.startswith('/'):
-                    assert urlsplit(link).path in ROUTES, link
+                    if link.startswith('/assets/'):
+                        asset_paths.add(urlsplit(link).path)
+                    else:
+                        assert urlsplit(link).path in ROUTES, link
                     assert fetch(link)[0] == 200, link
                 else:
                     assert link.startswith('mailto:'), link
@@ -135,7 +138,7 @@ def run_mode(mode, production_url, expected_index, contact_email=''):
             tree = ElementTree.fromstring(content)
             urls = [item.text for item in tree.findall('.//{*}loc')]
             assert urls == [production_url + route for route in ROUTES]
-        print(f'OK {mode}, origen {"válido" if expected_index else "deshabilitado"}: 5 páginas, {len(asset_paths)} recursos, enlaces, contactos, 404, privacidad y SEO')
+        print(f'OK {mode}, origen {"válido" if expected_index else "deshabilitado"}: {len(ROUTES)} páginas, {len(asset_paths)} recursos, enlaces, contactos, 404, privacidad y SEO')
     finally:
         proc.terminate()
         proc.wait(timeout=5)
@@ -144,10 +147,10 @@ def run_mode(mode, production_url, expected_index, contact_email=''):
 if __name__ == '__main__':
     run_mode('preview', '', False)
     # Origen reservado solo en el subproceso local, nunca una propuesta comercial.
-    run_mode('production', 'https://seo.test', True)
+    run_mode('production', 'https://goldengroup7.cl', True)
     run_mode('production', '', False)
     run_mode('production', 'http://seo.test', False)
     run_mode('preview', 'https://seo.test', False)
-    run_mode('preview', '', False, 'Goldengroup7@yahoo.com')
-    run_mode('production', '', False, 'Goldengroup7@yahoo.com')
+    run_mode('preview', '', False, 'goldengroup7spa@gmail.com')
+    run_mode('production', '', False, 'goldengroup7spa@gmail.com')
     run_mode('production', '', False, 'sin-correo')

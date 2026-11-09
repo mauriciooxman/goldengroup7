@@ -3,7 +3,7 @@ declare(strict_types=1);
 require dirname(__DIR__) . '/app/bootstrap.php';
 
 $path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
-$routes = array_merge(['/','/contacto'], array_map(static fn(string $slug): string => '/' . $slug, array_keys($areas)));
+$routes = array_merge(['/','/contacto'], array_map(static fn(string $slug): string => '/' . $slug, array_keys($areas)), ['/star-winner-turismo/alemania']);
 header('Content-Type: text/html; charset=UTF-8');
 header('X-Content-Type-Options: nosniff');
 header('Referrer-Policy: strict-origin-when-cross-origin');
@@ -22,14 +22,22 @@ if ($path === '/sitemap.xml') {
     echo '</urlset>'; exit;
 }
 $area = $areas[ltrim($path, '/')] ?? null;
+$isGermany = $path === '/star-winner-turismo/alemania';
+if ($isGermany) { $area = $areas['star-winner-turismo']; }
 $notFound = !in_array($path, $routes, true);
 if ($notFound) { http_response_code(404); }
 $title = $notFound ? 'Página no encontrada' : ($area['name'] ?? ($path === '/contacto' ? 'Contacto' : 'Turismo, cultura y espiritualidad'));
 $description = $area['description'] ?? ($path === '/contacto' ? 'Conversemos sobre turismo, actividades culturales y encuentros espirituales. Canales de contacto de Golden Group 7.' : 'Tres áreas, un mismo propósito: conectar personas con experiencias de turismo, cultura, aprendizaje y espiritualidad. Conoce Golden Group 7.');
+if ($isGermany) {
+    $title = '¿Quieres viajar a Alemania? | Star Winner';
+    $description = 'Asesoramiento integral para viajar y/o estudiar en Alemania: curso básico de alemán, documentos, conversaciones con nativos y manual alemán-español.';
+}
 $canonical = $indexable && !$notFound ? $baseUrl . $path : '';
 require dirname(__DIR__) . '/app/partials/header.php';
 if ($notFound) {
     echo '<section class="container error-page"><p class="eyebrow">ERROR 404</p><h1>Este camino no lleva a una página.</h1><p>Vuelve al inicio para conocer nuestras áreas o encontrar cómo contactarnos.</p><a class="button" href="/">Volver al inicio <span aria-hidden="true">↗</span></a></section>';
+} elseif ($isGermany) {
+    require dirname(__DIR__) . '/app/partials/germany.php';
 } elseif ($area) {
     require dirname(__DIR__) . '/app/partials/area.php';
 } elseif ($path === '/contacto') {

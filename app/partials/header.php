@@ -31,7 +31,7 @@
         <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="navegacion" hidden>Menú <span aria-hidden="true">☰</span></button>
         <nav id="navegacion" aria-label="Navegación principal">
             <a href="/" <?= $path === '/' ? 'aria-current="page"' : '' ?>>Inicio</a>
-            <?php foreach ($areas as $slug => $item): ?><a href="/<?= e($slug) ?>" <?= $path === '/' . $slug ? 'aria-current="page"' : '' ?>><?= e($item['short']) ?></a><?php endforeach; ?>
+            <?php foreach ($areas as $slug => $item): ?><a href="/<?= e($slug) ?>" <?= $path === '/' . $slug ? 'aria-current="page"' : (str_starts_with($path, '/' . $slug . '/') ? 'aria-current="true"' : '') ?>><?= e($item['short']) ?></a><?php endforeach; ?>
             <a class="nav-contact" href="/contacto" <?= $path === '/contacto' ? 'aria-current="page"' : '' ?>>Conversemos <span aria-hidden="true">↗</span></a>
         </nav>
     </div>

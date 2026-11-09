@@ -6,10 +6,10 @@ return [
     'environment' => getenv('GG_ENV') ?: 'preview',
     // Solo configurar tras confirmar dominio, HTTPS y versión con/sin www.
     'production_url' => rtrim(getenv('GG_PRODUCTION_URL') ?: '', '/'),
-    'emails' => ['Goldengroup7@yahoo.com', 'Starwinner@gmail.com', 'Masterproducciones6@gmail.com'],
-    'whatsapp' => getenv('GG_WHATSAPP') === false ? '56993938138' : trim((string) getenv('GG_WHATSAPP')), // Número temporal autorizado por el usuario; reemplazar por el empresarial definitivo.
+    'emails' => ['goldengroup7spa@gmail.com'],
+    'whatsapp' => getenv('GG_WHATSAPP') === false ? '56939210949' : trim((string) getenv('GG_WHATSAPP')),
     'whatsapp_message' => 'Hola, vengo del sitio web de Golden Group 7 y me gustaría recibir más información sobre sus servicios.',
-    'contact_email' => getenv('GG_CONTACT_EMAIL') === false ? 'Goldengroup7@yahoo.com' : trim((string) getenv('GG_CONTACT_EMAIL')),
+    'contact_email' => getenv('GG_CONTACT_EMAIL') === false ? 'goldengroup7spa@gmail.com' : trim((string) getenv('GG_CONTACT_EMAIL')),
     'socials' => [],
     'service_images' => [
         'turismo' => [
